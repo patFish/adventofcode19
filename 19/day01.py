@@ -9,6 +9,8 @@ For a mass of 1969, the fuel required is 654.
 For a mass of 100756, the fuel required is 33583.
 '''
 
+from sys import stdin
+
 
 def fuel(mass: int) -> int:
     return mass//3 - 2
@@ -17,3 +19,9 @@ def fuel(mass: int) -> int:
 assert fuel(12) == 2
 assert fuel(14) == 2
 assert fuel(1969) == 654
+
+with open('day01-Input.txt') as f:
+  masses = [int(line.strip()) for line in f]
+  res = sum(fuel(mass) for mass in masses)
+
+print(res)
