@@ -18,14 +18,21 @@ def fuel(mass: int) -> int:
     return mass//3 - 2
 
 
-assert fuel(12) == 2
-assert fuel(14) == 2
-assert fuel(1969) == 654
+def liftOffFuel(mass: int) -> int:
+  fuels = []
+  res = (fuel(mass))
+  fuels.append(res)
+  while(fuel(res) > 0):
+    res = fuel(res)
+    fuels.append(res)
+  return sum(fuels)
+
+
+assert liftOffFuel(14) == 2
+assert liftOffFuel(1969) == 966
+assert liftOffFuel(100756) == 50346
 
 with open('day01-Input.txt') as f:
     masses = [int(line.strip()) for line in f]
-    res = sum(fuel(mass) for mass in masses)
-    while(fuel(res) > 0):
-        res = res+fuel(res)
-
+    res = sum(liftOffFuel(mass) for mass in masses)
 print(res)
