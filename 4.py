@@ -51,13 +51,3 @@ for i in range(193651, 649729):
         count += 1
 
 print(count)
-
-
-# count = {'0': 0, '1': 0, '2': 3, '3': 2, '4': 0,
-#          '5': 0, '6': 0, '7': 0, '8': 0, '9': 0}
-# # if max(count.values())>2:
-# #     if if sorted(count.values(), reverse=True).count(2) == 1:
-# #         return True
-# #     return False
-# print(max(count.values()))
-# print(sorted(count.values(), reverse=True).index(2))
