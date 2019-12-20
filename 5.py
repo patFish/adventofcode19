@@ -31,7 +31,9 @@ def compute(arg: List[int]) -> List[int]:
             arg[resIdx] = param1 + param2
         elif opcode == 2:
             val1idx, val2idx, resIdx = arg[idx+1], arg[idx+2], arg[idx+3]
-            arg[resIdx] = arg[val1idx] * arg[val2idx]
+            param1 = val1idx if isV1immediate else arg[val1idx]
+            param2 = val2idx if isV2immediate else arg[val2idx]
+            arg[resIdx] = param1 * param2
         elif opcode == 3:
             ''' Special Input Case'''
             specialInput = int(1)
