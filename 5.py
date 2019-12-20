@@ -15,15 +15,11 @@ def compute(arg: List[int]) -> List[int]:
     nInstr = len(arg)//2
     idx = 0
     for _ in range(nInstr):
-        opcode = '0'+str(arg[idx])
-        isV3immediate, isV2immediate, isV1immediate = [False,
-                                                       False, False]
-        if len(opcode) > 3:
-            isV3immediate, isV2immediate, isV1immediate = [
-                bool(x) for x in opcode[0:3]]
-            opcode = int(opcode[3:])
-        else:
-            opcode = int(opcode)
+        opcode = str(arg[idx]).rjust(5, '0')[::-1]
+        isV1immediate, isV2immediate, isV3immediate = [
+            bool(int(x)) for x in opcode[2:]]
+        print(idx, arg[idx:idx+4], isV1immediate, isV2immediate, isV3immediate)
+        opcode = int(opcode[:2][::-1])
         if isProgramStop(opcode):
             break
         elif isAddtion(opcode):
@@ -49,6 +45,8 @@ def compute(arg: List[int]) -> List[int]:
             print(arg[valIdx])
             idx += 2
         else:
+            print(idx, arg[idx:idx+4])
+            print(arg)
             raise Exception('no valid opcode')
     return arg
 
@@ -78,6 +76,6 @@ def isAddtion(opcode):
 # assert np.array_equal(compute([2,4,4,5,99,0]), [2,4,4,5,99,9801])
 # assert np.array_equal(compute([1,1,1,4,99,5,6,0,99]), [30,1,1,4,2,5,6,0,99])
 
-Intcode = open('5-in.txt').read().split(',')
-inval = list(map(int, Intcode))
-print(compute(inval))
+# Intcode = open('5-in.txt').read().split(',')
+# inval = list(map(int, Intcode))
+# print(compute(inval))
