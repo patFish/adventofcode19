@@ -16,6 +16,8 @@ def compute(arg: List[int]) -> List[int]:
     idx = 0
     for _ in range(nInstr):
         opcode = '0'+str(arg[idx])
+        isV3immediate, isV2immediate, isV1immediate = [False,
+                                                       False, False]
         if len(opcode) > 3:
             isV3immediate, isV2immediate, isV1immediate = [
                 bool(x) for x in opcode[0:3]]
@@ -38,9 +40,9 @@ def compute(arg: List[int]) -> List[int]:
             idx += 4
         elif isInput(opcode):
             ''' Special Input Case'''
-            valIdx = arg[idx+1]
+            index = arg[idx+1]
             specialInput = int(1)
-            arg[valIdx] = specialInput
+            arg[index] = specialInput
             idx += 2
         elif isOutput(opcode):
             valIdx = arg[idx+1]
@@ -92,4 +94,5 @@ def isAddtion(opcode):
 
 
 Intcode = open('5-in.txt').read().split(',')
-print(compute(Intcode))
+inval = list(map(int, Intcode))
+print(compute(inval))
