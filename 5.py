@@ -78,21 +78,6 @@ def isAddtion(opcode):
 # assert np.array_equal(compute([2,4,4,5,99,0]), [2,4,4,5,99,9801])
 # assert np.array_equal(compute([1,1,1,4,99,5,6,0,99]), [30,1,1,4,2,5,6,0,99])
 
-# with open('day02-Input.txt') as f:
-#     instr = f.readline().strip().split(',')
-#     for noun in range(99):
-#         for verb in range(99):
-#             inval = list(map(int, instr))
-#             inval[1] = noun
-#             inval[2] = verb
-#     # print(inval)
-#             res = compute(inval)
-#             if res[0] == 19690720:
-#                 print(noun, verb, res[0])
-#                 print(100*noun + verb)
-#                 break
-
-
 Intcode = open('5-in.txt').read().split(',')
 inval = list(map(int, Intcode))
 print(compute(inval))
