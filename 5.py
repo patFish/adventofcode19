@@ -12,9 +12,9 @@ from typing import List
 
 
 def compute(arg: List[int]) -> List[int]:
-    nInstr = (len(arg)//4) if len(arg) % 4 == 0 else (len(arg)//4+1)
-    for k in range(nInstr):
-        idx = k*4
+    nInstr = len(arg)//2
+    idx = 0
+    for _ in range(nInstr):
         opcode = '0'+str(arg[idx])
         if len(opcode) > 2:
             isV3immediate, isV2immediate, isV1immediate = [
@@ -29,17 +29,21 @@ def compute(arg: List[int]) -> List[int]:
             param1 = val1idx if isV1immediate else arg[val1idx]
             param2 = val2idx if isV2immediate else arg[val2idx]
             arg[resIdx] = param1 + param2
+            idx += 4
         elif opcode == 2:
             val1idx, val2idx, resIdx = arg[idx+1], arg[idx+2], arg[idx+3]
             param1 = val1idx if isV1immediate else arg[val1idx]
             param2 = val2idx if isV2immediate else arg[val2idx]
             arg[resIdx] = param1 * param2
+            idx += 4
         elif opcode == 3:
             ''' Special Input Case'''
             specialInput = int(1)
             arg[val1idx] = specialInput
+            idx += 2
         elif opcode == 4:
             print(arg[idx+1])
+            idx += 2
         else:
             raise Exception('no valid opcode')
     return arg
