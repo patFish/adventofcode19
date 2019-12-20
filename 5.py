@@ -22,7 +22,7 @@ def compute(arg: List[int]) -> List[int]:
             opcode = int(opcode[3:])
         else:
             opcode = int(opcode)
-        if opcode == 99:
+        if isProgramStop(opcode):
             break
         elif isAddtion(opcode):
             val1idx, val2idx, resIdx = arg[idx+1], arg[idx+2], arg[idx+3]
@@ -30,23 +30,39 @@ def compute(arg: List[int]) -> List[int]:
             param2 = val2idx if isV2immediate else arg[val2idx]
             arg[resIdx] = param1 + param2
             idx += 4
-        elif opcode == 2:
+        elif isMultiplication(opcode):
             val1idx, val2idx, resIdx = arg[idx+1], arg[idx+2], arg[idx+3]
             param1 = val1idx if isV1immediate else arg[val1idx]
             param2 = val2idx if isV2immediate else arg[val2idx]
             arg[resIdx] = param1 * param2
             idx += 4
-        elif opcode == 3:
+        elif isInput(opcode):
             ''' Special Input Case'''
             specialInput = int(1)
             arg[val1idx] = specialInput
             idx += 2
-        elif opcode == 4:
+        elif isOutput(opcode):
             print(arg[idx+1])
             idx += 2
         else:
             raise Exception('no valid opcode')
     return arg
+
+
+def isProgramStop(opcode):
+    return opcode == 99
+
+
+def isOutput(opcode):
+    return opcode == 4
+
+
+def isInput(opcode):
+    return opcode == 3
+
+
+def isMultiplication(opcode):
+    return opcode == 2
 
 
 def isAddtion(opcode):
