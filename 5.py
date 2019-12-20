@@ -15,12 +15,20 @@ def compute(arg: List[int]) -> List[int]:
     nInstr = (len(arg)//4) if len(arg) % 4 == 0 else (len(arg)//4+1)
     for k in range(nInstr):
         idx = k*4
-        opcode = arg[idx]
+        opcode = '0'+str(arg[idx])
+        if len(opcode) > 2:
+            mode3, mode2, mode1 = [int(x) for x in opcode]
+            opcode = int(opcode[3:])
+        else:
+            opcode = int(opcode)
         if opcode == 99:
             break
         elif opcode == 1:
             val1idx, val2idx, resIdx = arg[idx+1], arg[idx+2], arg[idx+3]
-            arg[resIdx] = arg[val1idx] + arg[val2idx]
+            if mode2 == 1:
+                arg[resIdx] = arg[val1idx] + arg[val2idx]
+            elif mode1 == 1:
+                arg[resIdx] = arg[val1idx] + arg[val2idx]
         elif opcode == 2:
             val1idx, val2idx, resIdx = arg[idx+1], arg[idx+2], arg[idx+3]
             arg[resIdx] = arg[val1idx] * arg[val2idx]
@@ -57,5 +65,3 @@ def compute(arg: List[int]) -> List[int]:
 
 # Intcode = open('5-in.txt').read().split(',')
 # print(Intcode)
-
-print([int(x) for x in str(1002)])
