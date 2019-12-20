@@ -17,18 +17,18 @@ def compute(arg: List[int]) -> List[int]:
         idx = k*4
         opcode = '0'+str(arg[idx])
         if len(opcode) > 2:
-            mode3, mode2, mode1 = [int(x) for x in opcode]
+            isV3immediate, isV2immediate, isV1immediate = [
+                bool(x) for x in opcode]
             opcode = int(opcode[3:])
         else:
             opcode = int(opcode)
         if opcode == 99:
             break
-        elif opcode == 1:
+        elif isAddtion(opcode):
             val1idx, val2idx, resIdx = arg[idx+1], arg[idx+2], arg[idx+3]
-            if mode2 == 1:
-                arg[resIdx] = arg[val1idx] + arg[val2idx]
-            elif mode1 == 1:
-                arg[resIdx] = arg[val1idx] + arg[val2idx]
+            param1 = val1idx if isV1immediate else arg[val1idx]
+            param2 = val2idx if isV2immediate else arg[val2idx]
+            arg[resIdx] = param1 + param2
         elif opcode == 2:
             val1idx, val2idx, resIdx = arg[idx+1], arg[idx+2], arg[idx+3]
             arg[resIdx] = arg[val1idx] * arg[val2idx]
@@ -41,6 +41,10 @@ def compute(arg: List[int]) -> List[int]:
         else:
             raise Exception('no valid opcode')
     return arg
+
+
+def isAddtion(opcode):
+    return opcode == 1
 
 
 # assert np.array_equal(compute([1, 0, 0, 0, 99]), [2, 0, 0, 0, 99])
