@@ -18,7 +18,7 @@ def compute(arg: List[int]) -> List[int]:
         opcode = str(arg[idx]).rjust(5, '0')[::-1]
         isV1immediate, isV2immediate, isV3immediate = [
             bool(int(x)) for x in opcode[2:]]
-        print(idx, arg[idx:idx+4], isV1immediate, isV2immediate, isV3immediate)
+        # print(idx, arg[idx:idx+4], isV1immediate, isV2immediate, isV3immediate)
         opcode = int(opcode[:2][::-1])
         if isProgramStop(opcode):
             break
@@ -76,6 +76,6 @@ def isAddtion(opcode):
 # assert np.array_equal(compute([2,4,4,5,99,0]), [2,4,4,5,99,9801])
 # assert np.array_equal(compute([1,1,1,4,99,5,6,0,99]), [30,1,1,4,2,5,6,0,99])
 
-# Intcode = open('5-in.txt').read().split(',')
-# inval = list(map(int, Intcode))
-# print(compute(inval))
+Intcode = open('5-in.txt').read().split(',')
+inval = list(map(int, Intcode))
+print(compute(inval))
